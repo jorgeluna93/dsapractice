@@ -5,7 +5,7 @@ def slidingWindow(arr):
     w = 0 #size of the current window
     l = 0 #left side position of the window
 
-    print("(i) - This is the array we are goin' through: " + str(arr));
+    print("(i) - This is the array we are goin' through: " + str(arr))
     print("    - L = the left side of the window, R = the right side of the window, w = The size of the window (R-L)+1")
 
     for r in range(len(arr)):
