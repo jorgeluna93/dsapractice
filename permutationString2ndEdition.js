@@ -32,23 +32,17 @@ function hasPermutation(s1,s2){
             l++;
             r++;
         }
-        
         //
         if(subset.indexOf(s2[cursor]) != -1){
-            console.log(subset);
             //if a character of s1 appears and is on the checklist, we check in that and move our cursor
             subset.splice(subset.indexOf(s2[cursor]),1);
             cursor++;
 
         }
         else if(s1.indexOf(s2[cursor]) != -1){
-            console.log("repeats");
             subset.push(s2[l]);
             l++;
             r++;
-
-            console.log(cursor);
-            console.log(subset);
         }
         //
         else{
