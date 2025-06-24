@@ -19,7 +19,7 @@ Constraints:
     s1 and s2 consist of lowercase English letters.
 
 */
-
+//this version needs an optimization... see the definitive edition
 function hasPermutation(s1,s2){
 
     //as we need to review that at least one permutation of s1

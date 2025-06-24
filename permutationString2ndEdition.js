@@ -69,4 +69,4 @@ function hasPermutation(s1,s2){
 
 let testInputS1 = "adc";
 let testInputS2 = "dcda";
-console.log(hasPermutation(testInputS1,testInputS2));
+console.log(hasPermutation("hello","ooolleoooleh"));
