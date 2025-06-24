@@ -18,46 +18,71 @@ The substring "BBBB" has the longest repeating letters, which is 4.
 There may exists other ways to achieve this answer too.
 */
 
-function longestRepeating(str,k){
-
-    let usedLetters = 0; //counts of used letters
-    let currentLetter = str[0]; //current letter to review
-    let l = 0; //left side of the window
-    let r = 1; //right side of the window
-    let longestStringSize = 0;//longest string 
-    let w = 0; //current size of the window
-    let firstChanged = null; //flag to check first changed 
-
-    
-    while(r<str.length){
-        w = (r-l) + 1;//calculate the size of the window
-        if(w > longestStringSize){
-            longestStringSize = w;
+//Keeps track of the letters in the window
+class WinAlphabet{
+    constructor(maxLetterChanges){
+        this.alphabet = new Array(26).fill(0); //Creates an array of 26 positions, each representing each capital letter (english alphabet)
+        this.maxLetterChanges = maxLetterChanges; //number of letter changes allowed
+    }
+    addFrequency(letter){
+        //ASCII Code for Letters ranges from 65 to 90 (A - Z)
+        //We get the ASCII Code of the letter and the we substract 65 
+        //to get the position in our array
+        try{
+            let asciiNum = letter.charCodeAt(0); 
+            this.alphabet[asciiNum - 65] = this.alphabet[asciiNum - 65] + 1;
         }
-
-        if(str[r] == currentLetter){
-            r++;
+        catch(e){
+            return; //In case of out-of bound kinda error
         }
-        else if(usedLetters<k){
-            usedLetters++;
-            if(firstChanged === null){
-                firstChanged = r;
-            }
-            r++;
+    }
+    deleteFrequency(letter){
+        //ASCII Code for Letters ranges from 65 to 90 (A - Z)
+        //We get the ASCII Code of the letter and the we substract 65 
+        //to get the position in our array        
+        try{
+            let asciiNum = letter.charCodeAt(0); 
 
+            this.alphabet[asciiNum - 65] = this.alphabet[asciiNum - 65] - 1;
         }
-        else{
-
-            currentLetter = str[firstChanged];
-            l = firstChanged;
-            r = l+1;
+        catch(e){
+            return; //In case of out-of bound kinda error
         }
-
 
     }
+    isValidWindow(sizeOfWindow){
+        let mostFrequentLetter = Math.max(...this.alphabet);
+        if((sizeOfWindow - mostFrequentLetter) > this.maxLetterChanges){
+            return false;
+        }
+        return true;
+    }
+    
+}
 
-    return longestStringSize;
+function longestRepeating(str,k){
+    let l = 0;//Initial Position Left
+    let r = 0;//Initial POsition Right
+    let w = 0;//Current size of the window
+    let longestSubstring = 0;//Records the longest substring
+    let lettersInWin = new WinAlphabet(k);
+    while(r<str.length){
+        lettersInWin.addFrequency(str[r]);
+        w = (r-l)+1;
+        while(lettersInWin.isValidWindow(w) == false){
+            lettersInWin.deleteFrequency(str[l]);
+            l++;
+            w = (r-l)+1;
+        }
+        if(w>longestSubstring){
+            longestSubstring = w;
+        }
+        r++;
+    }
+
+    return longestSubstring;
 
 }
+
 
 console.log(longestRepeating("ABAB",2));
