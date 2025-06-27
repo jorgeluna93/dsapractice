@@ -25,10 +25,12 @@ function binarySearchWithPrediction(arr,target){
     let l = 0;
     let r =  arr.length - 1;
     let m = null;
-    let backupM = null;
+    let w = null;
+    let likely = null;
     while(l<=r){
-        backupM = m;
+ 
         m = l + Math.floor((r-l)/2);  
+   
         if(target === arr[m]){
             return m;
         }
@@ -39,11 +41,17 @@ function binarySearchWithPrediction(arr,target){
         else if(target > arr[m]){
             l = m + 1;
         }
+        
 
     }
-  
-    return backupM;
+
+    if(arr[m] < target){
+        return m + 1
+    }
+    else{
+        return m;
+    }
 }
 
 
-console.log(binarySearchWithPrediction([1,3,5,6],2));
+console.log(binarySearchWithPrediction([1,3,5,6],4));
