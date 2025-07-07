@@ -56,7 +56,6 @@ function bananaMinSpeed(piles,h){
 }
 
 
-
 function bananaConsumption(arr,k,h){
     let maxPile = Math.max(...arr); //Get the biggest pile
     let timeToEatMaxPile = Math.ceil(maxPile/k); //Calculate the needed speed to eat the max pile
