@@ -33,48 +33,60 @@ Constraints:
 
 */
 function bananaMinSpeed(piles,h){
-
     let l = 1;
     let r = Math.max(...piles);
     let m = null;
-    while(l < r){
-        let m = Math.floor((l+r)/2);
-        console.log(".....");
-        console.log(" l = " + l + "; r = " + r + " m = "+ m);
 
-        if(bananaConsumption(piles,m,h) >= 0){
+    while(l < r){
+        m = Math.floor((l+r)/2);
+        console.log("[!]-- Run ---------------------------------]");
+        console.log(" l = " + l + "; r = " + r + "; m = "+ m + "; ");
+        console.log("[__________________________________________]");
+        console.log("\n");
+
+        if(bananaConsumption(piles,m,h)){//condition here
             r = m;
         }
         else{
             l = m + 1;
         }
-
     }
     return l;
     //
-
 }
+
 
 
 function bananaConsumption(arr,k,h){
-    let i = 0;
-
-    while(h > 0 && i < arr.length){
+    let maxPile = Math.max(...arr); //Get the biggest pile
+    let timeToEatMaxPile = Math.ceil(maxPile/k); //Calculate the needed speed to eat the max pile
+    console.log(timeToEatMaxPile);
+    //
+    let feasibleSpeed = (timeToEatMaxPile <= h);//It is the current speed enough to eat all the greatest pile in time?
+    //
+    let timeEating = 0;
+    //
+    if(feasibleSpeed ){
+        for(let i = 0;i<arr.length;i++){
+            timeEating = timeEating + Math.ceil(arr[i]/k);  
+        }
         
-        if(k >= arr[i]){
-            h = h - 1;
-        }
-        else{
-            h = h - Math.ceil(arr[i]/k);
-        }
-        i++;
+        return (timeEating <= h);
     }
-    console.log("speed banana consumption - "  + k + "| hours left - " + h + "| i left " + i);
-    return h; //return hours
+    else {
+        return false;
+    }
 
 }
+
+//h-timeToEatMaxPile 
+
+/*
 let piles = [30,11,23,4,20];
 let h = 5;
-//let k = 6;
-//console.log(bananaConsumption(piles,6,8));
+*/
+
+let piles = [1000000000];
+let h = 2;
+
 console.log(bananaMinSpeed(piles,h));
