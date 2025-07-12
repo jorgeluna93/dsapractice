@@ -1,4 +1,5 @@
 function productExceptSelf(arr) {
+    
     let right = 1;
     let left = 1;
 
