@@ -12,7 +12,6 @@ function majority(arr){
 
         
         if(mapita.get(c) >= Math.ceil(arr.length/2)){
-
             return c;
         }
     }
